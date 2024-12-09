@@ -3,24 +3,27 @@
 a Waline plugin that use openai-compatible LLM API to review comments.
 
 ***
-> [中文 README](https://github.com/zhullyb/waline-plugin-llm-reviewer/blob/main/README_CN.md)
+> [中文 README](/README_CN.md)
 
 ## How to Install
 
-```bash
+``` bash
 npm install waline-plugin-llm-reviewer
 ```
 
 ## How to Use
 
-```javascript
-// index.js
+Edit your Waline File:
+
+### index.js
+
+``` javascript
 const Waline = require('@waline/vercel');
 const GPTReviewer = require('waline-plugin-llm-reviewer');
 
 module.exports = Waline({
   plugins: [
-    GptReviewer({
+    GPTReviewer({
         openaiBaseUrl: process.env.OPENAI_BASE_URL,
         openaiModel: process.env.OPENAI_MODEL,
         openaiApiKey: process.env.OPENAI_API_KEY,
@@ -30,6 +33,10 @@ module.exports = Waline({
 });
 ```
 
+### package.json
+
+Add `"waline-plugin-llm-reviewer": "latest"` into package.json dependencies.
+
 ## Environment Variables
 
 - `ASISMET_KEY`: Anti-spam comment service used by Waline, **it is recommended to set it to `false` to disable**.
@@ -37,6 +44,8 @@ module.exports = Waline({
 - `OPENAI_MODEL`: Model name. e.g. `gpt-4o-mini`
 - `OPENAI_API_KEY`: API key. e.g. `ak-xxxxxx`
 - `OPENAI_PROMPT`(Optional): Prompt for the model. e.g. `This is a comment review: `
+
+Click "Redeploy" after change environment variables.
 
 ## License
 
