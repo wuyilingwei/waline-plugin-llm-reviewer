@@ -28,6 +28,7 @@ module.exports = Waline({
         openaiModel: process.env.OPENAI_MODEL,
         openaiApiKey: process.env.OPENAI_API_KEY,
         openaiPrompt: process.env.OPENAI_PROMPT,
+        openaiReason: process.env.OPENAI_REASON
     })
   ]
 });
@@ -39,11 +40,15 @@ Add `"waline-plugin-llm-reviewer": "latest"` into package.json dependencies.
 
 ## Environment Variables
 
-- `ASISMET_KEY`: Anti-spam comment service used by Waline, **it is recommended to set it to `false` to disable**.
-- `OPENAI_BASE_URL`: API base URL. e.g. `https://api.openai.com`
-- `OPENAI_MODEL`: Model name. e.g. `gpt-4o-mini`
-- `OPENAI_API_KEY`: API key. e.g. `ak-xxxxxx`
-- `OPENAI_PROMPT`(Optional): Prompt for the model. e.g. `This is a comment review: `
+| Name | Need | Default | Introduce  |
+| :---: | :---: | :---: | :---: |
+| `ASISMET_KEY`      | [ ] | - | Anti-spam comment service used by Waline. Recommended to `false`.|
+| `OPENAI_BASE_URL`  | [x] | - | API base URL`https://api.openai.com`. |
+| `OPENAI_MODEL`     | [x] | - | Model name. Recommended to `gpt-4o-mini` |
+| `OPENAI_API_KEY`   | [x] | - | API key `ak-xxxxxx`.|
+| `OPENAI_PROMPT`    | [ ] | `false` | Prompt for the model.`This is a comment review: ` |
+| `OPENAI_REASON`    | [ ] | `false` | Enable AI judge reason, suggest when debug or too many misjudgments.|
+
 
 Click "Redeploy" after change environment variables.
 
