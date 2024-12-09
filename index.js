@@ -11,6 +11,8 @@ module.exports = function ({ openaiBaseUrl, openaiModel, openaiApiKey, openaiPro
       4. Output should be a single word(approved/spam). \
       ';
     }
+
+    console.log('openaiPrompt', openaiPrompt);
   
     const doReview = async (comment) => {
       const response = await fetch(openaiBaseUrl + '/v1/chat/completions', {
@@ -35,6 +37,7 @@ module.exports = function ({ openaiBaseUrl, openaiModel, openaiApiKey, openaiPro
       });
       const data = await response.json();
       if (data && data.choices && data.choices.length > 0) {
+        console.log('llm response', data.choices[0].message);
         return data.choices[0].message.content;
       } else {
         return 'waiting';
