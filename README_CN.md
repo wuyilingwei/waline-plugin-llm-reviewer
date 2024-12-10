@@ -19,15 +19,16 @@ npm install waline-plugin-llm-reviewer
 
 ``` javascript
 const Waline = require('@waline/vercel');
-const GPTReviewer = require('waline-plugin-llm-reviewer');
+const LLMReviewer = require('waline-plugin-llm-reviewer');
 
 module.exports = Waline({
   plugins: [
-    GPTReviewer({
-        openaiBaseUrl: process.env.OPENAI_BASE_URL,
-        openaiModel: process.env.OPENAI_MODEL,
-        openaiApiKey: process.env.OPENAI_API_KEY,
-        openaiPrompt: process.env.OPENAI_PROMPT,
+    LLMReviewer({
+        LLMApiUrl: process.env.LLM_API_URL,
+        LLMModel: process.env.LLM_MODEL,
+        LLMApiKey: process.env.LLM_API_KEY,
+        LLMPrompt: process.env.LLM_PROMPT,
+        LLMReason: process.env.LLM_REASON,
     })
   ]
 });
@@ -39,13 +40,20 @@ module.exports = Waline({
 
 ## 环境变量
 
-- `ASISMET_KEY`: Waline 使用的反垃圾评论服务，**建议设置为 `false` 以禁用**。
-- `OPENAI_BASE_URL`: API 基础 URL。例如 `https://api.openai.com`
-- `OPENAI_MODEL`: 模型名称。例如 `gpt-4o-mini`
-- `OPENAI_API_KEY`: API 密钥。例如 `ak-xxxxxx`
-- `OPENAI_PROMPT`(可选): 模型的提示。例如 `这是一个评论审查: `
+| 名称 | 必须 | 默认值 | 介绍 |
+| :---: | :---: | :---: | :---: |
+| `LLM_API_KEY` | 是 | - | API密钥 `ak-xxxxxx` |
+| `LLM_API_URL` | 否 | `https://api.openai.com/v1/chat/completions` | API完整URL |
+| `LLM_MODEL` | 否 | `gpt-4o-mini` | 模型名称。推荐使用 `gpt-4o-mini` |
+| `LLM_PROMPT` | 否 | `false` | 模型的提示词。`This is a comment review: ` |
+| `LLM_REASON` | 否 | `false` | 启用AI判断理由，建议在调试或判断失误较多时使用 |
+| `ASISMET_KEY` | 否 | - | Waline使用的反垃圾评论服务。推荐设置为 `false` |
 
 更改环境变量后点击“重新部署”。
+
+## 其他
+
+附上了一个`prompt_test.py`，可以下载来测试你提示词的准确性，包含数个评论样例。该文件不实际参与插件运行。
 
 ## 许可证
 

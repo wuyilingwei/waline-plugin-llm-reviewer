@@ -1,35 +1,44 @@
-module.exports = function ({ openaiBaseUrl, openaiModel, openaiApiKey, openaiPrompt, openaiReason }) {
-    if (!openaiBaseUrl || !openaiModel || !openaiApiKey) {
+module.exports = function ({ LLMApiUrl, LLMName, LLMApiKey, LLMPrompt, LLMReason }) {
+    if (!LLMApiKey) {
+      console.error('LLMApiKey is required');
       return {};
     }
 
-    if (!openaiPrompt) {
-      openaiPrompt = 'You are a review bot. Your task is to review the comments according to following rules: \
+    // default api and model
+    if (!LLMApiUrl) {
+      LLMApiUrl = 'https://api.openai.com/v1/chat/completions';
+    }
+    if (!LLMName) {
+      LLMName = 'gpt-4o-mini';
+    }
+    // default prompt
+    if (!LLMPrompt) {
+      LLMPrompt = 'You are a review bot. Your task is to review the comments according to following rules: \
       1. Any contact information should not be included, including qq number, email, phone number, etc. \
       2. Any content with advertising or sensitive information should not be included. \
       3. Any other content that is not suitable for public display should not be included. \
       ';
     }
-
-    if (openaiReason) {
-      openaiPrompt += ' Output should be (approved/spam)|reason.';
+    // output require
+    if (LLMReason) {
+      LLMPrompt += ' Output should be (approved/spam)|reason.';
     } else {
-      openaiPrompt += ' Output should be a single word(approved/spam).';
+      LLMPrompt += ' Output should be a single word(approved/spam).';
     }
 
     const doReview = async (comment) => {
-      const response = await fetch(openaiBaseUrl + '/v1/chat/completions', {
+      const response = await fetch(LLMApiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${openaiApiKey}`,
+          'Authorization': `Bearer ${LLMApiKey}`,
         },
         body: JSON.stringify({
-          model: openaiModel,
+          model: LLMName,
           messages: [
             {
               role: 'system',
-              content: openaiPrompt
+              content: LLMPrompt
             },
             {
               role: 'user',
@@ -40,7 +49,7 @@ module.exports = function ({ openaiBaseUrl, openaiModel, openaiApiKey, openaiPro
       });
       const data = await response.json();
       if (data && data.choices && data.choices.length > 0) {
-        console.log('openaiPrompt', openaiPrompt);
+        console.log('LLMPrompt', LLMPrompt);
         console.log('comment', comment);
         console.log('llm response', data.choices[0].message);
         return data.choices[0].message.content;
@@ -61,7 +70,7 @@ module.exports = function ({ openaiBaseUrl, openaiModel, openaiApiKey, openaiPro
 
           try {
             const resp = await doReview(data.comment);
-            if (openaiReason) {
+            if (LLMReason) {
               judge = resp.split('|')[0];
               reason = resp.split('|')[1];
             } else {
@@ -81,4 +90,4 @@ module.exports = function ({ openaiBaseUrl, openaiModel, openaiApiKey, openaiPro
       },
     };
   }
-  
+
