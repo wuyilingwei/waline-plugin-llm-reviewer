@@ -1,6 +1,8 @@
-# waline-plugin-llm-reviewer
+# waline-plugin-llm-reviewer-next
 
 一个 Waline 插件，使用 openai 兼容的 LLM API 来审查评论。
+
+这是waline-plugin-llm-reviewer的分支版本，提供更多功能，由于和一些初始作者上的设计理念不同，故单独发布此版本
 
 ***
 > [English README](/README.md)
@@ -19,7 +21,7 @@ npm install waline-plugin-llm-reviewer
 
 ``` javascript
 const Waline = require('@waline/vercel');
-const LLMReviewer = require('waline-plugin-llm-reviewer');
+const LLMReviewer = require('waline-plugin-llm-reviewer-next');
 
 module.exports = Waline({
   plugins: [
@@ -36,7 +38,7 @@ module.exports = Waline({
 
 ### package.json
 
-将 `"waline-plugin-llm-reviewer": "latest"` 添加到 package.json 依赖项中。
+将 `"waline-plugin-llm-reviewer-next": "latest"` 添加到 package.json 依赖项中。
 
 ## 环境变量
 

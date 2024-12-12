@@ -1,6 +1,8 @@
-# waline-plugin-llm-reviewer
+# waline-plugin-llm-reviewer-next
 
 a Waline plugin that use openai style LLM API to review comments.
+
+This is a branch version of waline-plugin-llm-reviewer, which provides more functions. Due to the different design concepts from some of the original authors, this version is released separately.
 
 ***
 > [中文 README](/README_CN.md)
@@ -8,7 +10,7 @@ a Waline plugin that use openai style LLM API to review comments.
 ## How to Install
 
 ``` bash
-npm install waline-plugin-llm-reviewer
+npm install waline-plugin-llm-reviewer-next
 ```
 
 ## How to Use
@@ -19,7 +21,7 @@ Edit your Waline File:
 
 ``` javascript
 const Waline = require('@waline/vercel');
-const LLMReviewer = require('waline-plugin-llm-reviewer');
+const LLMReviewer = require('waline-plugin-llm-reviewer-next');
 
 module.exports = Waline({
   plugins: [
@@ -36,7 +38,7 @@ module.exports = Waline({
 
 ### package.json
 
-Add `"waline-plugin-llm-reviewer": "latest"` into package.json dependencies.
+Add `"waline-plugin-llm-reviewer-next": "latest"` into package.json dependencies.
 
 ## Environment Variables
 
